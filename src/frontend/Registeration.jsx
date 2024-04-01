@@ -15,7 +15,7 @@ const Registeration = () => {
     e.preventDefault();
   
     try {
-      const response = await fetch('http://192.168.1.18:3002/register', {
+      const response = await fetch('http://192.168.1.10:3002/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ const Registeration = () => {
             <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} required/>
             <button type="submit" className='register-submit'>Register</button>
             <p>or <a href="/Login">Login</a></p>
-            <a href="#" className="google-login"><FontAwesomeIcon icon={faGoogle} className='google-icon'/>Continue with Google</a>
+            {/* <a href="#" className="google-login"><FontAwesomeIcon icon={faGoogle} className='google-icon'/>Continue with Google</a> */}
         </form>
     </div>
   )

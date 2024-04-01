@@ -13,10 +13,10 @@ export default function Index() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Dashboard/>}></Route>
+        <Route path="/admin-dashboard" element={<Dashboard/>}></Route>
         <Route path="/ClientProfile/:clientId" element={<ClientProfile/>}></Route>
         <Route path="/Login" element={<Login/>}></Route>
-        {/* <Route path='/Register' element={<Registeration/>}></Route> */}
+        <Route path='/Register' element={<Registeration/>}></Route>
       </Routes>
     </BrowserRouter>
   )

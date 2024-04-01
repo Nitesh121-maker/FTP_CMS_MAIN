@@ -54,7 +54,7 @@ function Index() {
         e.preventDefault();
       
         try {
-          const response = await fetch('http://192.168.1.7:3002/client', {
+          const response = await fetch('http://192.168.1.10:3002/client', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ function Index() {
         // Fetch data from the /clients endpoint
         const fetchData = async () => {
           try {
-            const response = await fetch('http://192.168.1.7:3002/clientdata');
+            const response = await fetch('http://192.168.1.10:3002/clientdata');
             // const data = await response.json();
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -116,14 +116,24 @@ function Index() {
           },
         });
       };
+     
+      const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+      useEffect(() => {
+          // Check if the user is logged in
+          const email = sessionStorage.getItem('email');
+          console.log('Email',email)
+          setIsLoggedIn(!!email);
+      }, []);
   return (
-    <>
+    <>  
+    
         <Header/>
         <div className="main">
             <div className="sidewrap">
                 <div className="sidebar">
                     <div className="sidebar-list">
-                        <li> <FontAwesomeIcon icon={faDashboard} /><a href="/">Dashboard</a></li>
+                        <li> <FontAwesomeIcon icon={faDashboard} /><a href="/admin-dashboard">Dashboard</a></li>
                     </div>
                     <div className="sidebar-list">
                         <li><FontAwesomeIcon icon={faCalendar}/><a href="#Calender" onClick={showCalander}>Calendar</a></li>

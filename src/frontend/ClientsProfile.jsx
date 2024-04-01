@@ -38,7 +38,7 @@ function ClientsProfile() {
       formData.append('fileMonth', fileMonth);
       formData.append('file', file);
 
-      const response = await fetch('http://192.168.1.7:3002/upload', {
+      const response = await fetch('http://192.168.1.10:3002/upload', {
         method: 'POST',
         body: formData,
       });
@@ -76,7 +76,7 @@ function ClientsProfile() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://192.168.1.7:3002/getFileData/${clientId}`);
+        const response = await fetch(`http://192.168.1.10:3002/getFileData/${clientId}`);
         if (response.ok) {
           const data = await response.json();
           console.log('Data from server:', data); // Log the received data
@@ -100,7 +100,7 @@ function ClientsProfile() {
       <div className="main-body">
         <div className="sidebar">
           <div className="sidebar-list">
-            <li> <FontAwesomeIcon icon={faDashboard} /><a href="/">Dashboard</a></li>
+            <li> <FontAwesomeIcon icon={faDashboard} /><a href="/admin-dashboard">Dashboard</a></li>
           </div>
         </div> 
 
@@ -111,7 +111,10 @@ function ClientsProfile() {
               <h4><span>Email:  </span> {clientEmail}</h4>
             </div>
           )}
-          {isUploading && <div className="loader">Uploading...</div>}
+          {isUploading && 
+            <><div className="loader"></div>
+            <h3>Uploading...</h3></>
+          }
           <h1>File Upload Page</h1>
           {message && <p>{message}</p>}
           <form onSubmit={handleFormSubmit}>

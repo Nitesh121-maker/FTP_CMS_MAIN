@@ -182,9 +182,9 @@ body{
   .view-btn:hover {
     background-color: #2980b9;
   }
-  /* .clients{
-    width: 80%;
-  } */
+  .clients{
+    margin-left: 2%;
+  }
   .clients h3{
     margin-left: 20px;
   }
