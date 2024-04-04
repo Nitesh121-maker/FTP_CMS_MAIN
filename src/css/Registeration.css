@@ -11,6 +11,7 @@
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    min-width: 300px;
 }
 
 h2 {
@@ -22,10 +23,11 @@ label {
     display: block;
     margin: 10px 0 5px;
     color: #555;
+    font-weight: 600;
 }
 
 input {
-    width: 100%;
+    width: 90%;
     padding: 8px;
     margin-bottom: 10px;
     border: 1px solid #ddd;
