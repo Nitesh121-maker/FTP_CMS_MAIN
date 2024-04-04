@@ -4,7 +4,7 @@ import "../css/index.css"
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDashboard } from '@fortawesome/free-solid-svg-icons';
-import { faCalendar,faUser,faPerson } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar,faUser,faPerson,faBell } from '@fortawesome/free-solid-svg-icons';
 import Profile from  "./profile"
 import Allclients from "./Clients"
 import Calender from "./Calendar"
@@ -151,6 +151,7 @@ function Index() {
               <div className="sidebar-list">
                 <li><FontAwesomeIcon icon={faPerson} /><a href="#Clients" onClick={showAllClients}>Clients</a></li>
               </div>
+
             </div>
           </div>
           <div className="functions">
