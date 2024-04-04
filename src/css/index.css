@@ -1,6 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 body{
     margin: 0;
     padding: 0;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
 }
 .main{
     width: 100%;
@@ -16,15 +21,14 @@ body{
     width: 250px;
     position: fixed;
     height: 91.4vh;
-    background-color: #1f1f1f;
-    box-shadow: 5px 0 10px rgba(0, 0, 0, 0.2); 
+    background-color: white;
 }
-.sidebar-list{
+.sidebar-list {
     width: 80%;
     margin: 10% auto;
 }
 .sidebar-list li{
-    background-color: #3b3b3b;
+    background-color: #4CAF50;
     width: 80%;
     height: 35px;
     list-style: none;
@@ -32,6 +36,7 @@ body{
     display: flex;
     border-radius: 10px;
     align-items: center;
+    padding: 8px;
 }
 .sidebar-list li svg{
     font-size: 30px;
@@ -42,9 +47,11 @@ body{
     width: 100%;
     text-decoration: none;
     color: white;
-    text-align: left;
+    text-align: start;
     line-height: 35px;
     border-radius: 10px;
+    font-weight: 500;
+    padding: 5%;
 }
 
 /* Hover effect */
@@ -80,6 +87,7 @@ body{
     display: block;
     margin-bottom: 5px;
     color: #333;
+    font-weight: 500;
   }
   
   .form-group input {
@@ -111,7 +119,7 @@ body{
   .add-client-btn {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #3498db;
+    background-color: #4CAF50;
     color: #fff;
     font-size: 16px;
     font-weight: bold;
@@ -182,9 +190,9 @@ body{
   .view-btn:hover {
     background-color: #2980b9;
   }
-  .clients{
-    margin-left: 2%;
-  }
+  /* .clients{
+    width: 80%;
+  } */
   .clients h3{
     margin-left: 20px;
   }
@@ -192,35 +200,11 @@ body{
     margin-top: 2%;
   }
 
-  /* Progress Bar */
-  .progress-container {
-    width: 100%;
-    height: 10px;
-    background-color: #f0f0f0;
-    border-radius: 5px;
-    overflow: hidden;
-    margin-top: 10px;
-  }
-  
-  .progress-bar {
-    height: 100%;
-    width: 0;
-    background-color: #4caf50;
-    border-radius: 5px;
-    animation: progressAnimation 2s ease-out;
-  }
-  
-  @keyframes progressAnimation {
-    from {
-      width: 0;
-    }
-    to {
-      width: 100%;
-    }
-  }
-  .edit-sucess-message{
+  .error {
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
     text-align: center;
-    font-size: 20px;
-    background-color: wheat;
-    opacity: 0.5;
+    background-color: red;
+    padding: 20px;
   }

@@ -54,7 +54,7 @@ function Index() {
         e.preventDefault();
       
         try {
-          const response = await fetch('http://192.168.1.5:3002/client', {
+          const response = await fetch('http://192.168.1.7:3002/client', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ function Index() {
         // Fetch data from the /clients endpoint
         const fetchData = async () => {
           try {
-            const response = await fetch('http://192.168.1.5:3002/clientdata');
+            const response = await fetch('http://192.168.1.7:3002/clientdata');
             // const data = await response.json();
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -116,24 +116,14 @@ function Index() {
           },
         });
       };
-     
-      const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-      useEffect(() => {
-          // Check if the user is logged in
-          const email = sessionStorage.getItem('email');
-          console.log('Email',email)
-          setIsLoggedIn(!!email);
-      }, []);
   return (
-    <>  
-    
+    <>
         <Header/>
         <div className="main">
             <div className="sidewrap">
                 <div className="sidebar">
                     <div className="sidebar-list">
-                        <li> <FontAwesomeIcon icon={faDashboard} /><a href="/admin-dashboard">Dashboard</a></li>
+                        <li> <FontAwesomeIcon icon={faDashboard} /><a href="/">Dashboard</a></li>
                     </div>
                     <div className="sidebar-list">
                         <li><FontAwesomeIcon icon={faCalendar}/><a href="#Calender" onClick={showCalander}>Calendar</a></li>
@@ -150,7 +140,7 @@ function Index() {
                 {isclientform &&
                     <div className="add-client-form">
                         <form method='post' onSubmit={handleClient}>
-                        {message && <p>{message}</p>}
+                        {message && <p className='error'>{message}</p>}
                         <h2>Add Client</h2>
 
                         <div className="form-group">
@@ -162,7 +152,6 @@ function Index() {
                             <label formData="clientEmail">Client Email:</label>
                             <input type="email" id="clientEmail" name="clientEmail"value={formData.clientEmail} onChange={handleChange} required/>
                         </div>
-                        
                         <input type="text" id="clientStatus" name="clientStatus" value={formData.clientStatus} hidden/>
                         <div className="form-group">
                             <label formData="clientPassword">Password:</label>
@@ -194,7 +183,7 @@ function Index() {
                                     <td>{client.clientName}</td>
                                     <td>{client.clientEmail}</td>
                                     <td>{client.clientStatus}</td>
-                                    <td>{new Date(client.created_at).toLocaleDateString()}</td>
+                                    <td>{client.created_at}</td>
                                     <button onClick={() => handleViewClick(client)} className='view-btn'>View</button>
                                 </tr>
                                 ))
