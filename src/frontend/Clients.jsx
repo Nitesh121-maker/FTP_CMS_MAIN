@@ -14,7 +14,7 @@ function Clients() {
        
         const fetchData = async () => {
           try {
-            const response = await fetch('http://192.168.1.10:3002/clientdata');
+            const response = await fetch('http://192.168.1.5:3002/clientdata');
             // const data = await response.json();
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -60,11 +60,12 @@ function Clients() {
 
     <div className="Allclients">
        <div className="clients-main">
-            <h3>Recent Client</h3>
+            <h3>All Client</h3>
             <table>
                 <thead>
                 <tr>
                     <th>Name</th>
+                    <th>UID</th>
                     <th>Email</th>
                     <th>Status</th>
                     <th>Created At</th>
@@ -76,9 +77,10 @@ function Clients() {
                         clients.map((client) => (
                         <tr key={client.clientId}>
                             <td>{client.clientName}</td>
+                            <td>{client.clientId}</td>
                             <td>{client.clientEmail}</td>
                             <td>{client.clientStatus}</td>
-                            <td>{client.created_at}</td>
+                            <td>{new Date(client.created_at).toLocaleDateString()}</td>
                             <td>
                                 <button onClick={() => handleViewClick(client)} className='action-btn'>View</button>
                                 <button  onClick={() => handleEditClick(client)}className="action-btn">Edit</button>

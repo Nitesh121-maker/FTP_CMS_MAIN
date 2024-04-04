@@ -20,7 +20,7 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://192.168.1.10:3002/login', {
+      const response = await fetch('http://192.168.1.5:3002/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

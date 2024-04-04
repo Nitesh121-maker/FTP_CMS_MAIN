@@ -54,7 +54,7 @@ function Index() {
         e.preventDefault();
       
         try {
-          const response = await fetch('http://192.168.1.10:3002/client', {
+          const response = await fetch('http://192.168.1.5:3002/client', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ function Index() {
         // Fetch data from the /clients endpoint
         const fetchData = async () => {
           try {
-            const response = await fetch('http://192.168.1.10:3002/clientdata');
+            const response = await fetch('http://192.168.1.5:3002/clientdata');
             // const data = await response.json();
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -162,6 +162,7 @@ function Index() {
                             <label formData="clientEmail">Client Email:</label>
                             <input type="email" id="clientEmail" name="clientEmail"value={formData.clientEmail} onChange={handleChange} required/>
                         </div>
+                        
                         <input type="text" id="clientStatus" name="clientStatus" value={formData.clientStatus} hidden/>
                         <div className="form-group">
                             <label formData="clientPassword">Password:</label>
@@ -193,7 +194,7 @@ function Index() {
                                     <td>{client.clientName}</td>
                                     <td>{client.clientEmail}</td>
                                     <td>{client.clientStatus}</td>
-                                    <td>{client.created_at}</td>
+                                    <td>{new Date(client.created_at).toLocaleDateString()}</td>
                                     <button onClick={() => handleViewClick(client)} className='view-btn'>View</button>
                                 </tr>
                                 ))
