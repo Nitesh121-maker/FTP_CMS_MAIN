@@ -124,10 +124,15 @@ function Index() {
       useEffect(() => {
           // Check if the user is logged in
           const userData = localStorage.getItem('userData');
-          console.log('User Data: ', userData);
+          // console.log('User Data: ', userData);
           const isLoggedIn = !!userData; // Check if user data exists
           setIsLoggedIn(isLoggedIn);
+
+          if (!isLoggedIn) {
+            navigate('/login');
+          }
       }, []);
+
   return (
     <>
         { isLoggedIn&&
