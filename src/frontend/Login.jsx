@@ -30,6 +30,8 @@ function Login() {
       });
 
       if (response.ok) {
+        const userData = await response.json();
+        localStorage.setItem('userData', JSON.stringify(userData));
         setIslogedin(true);
         // Navigate to the desired route
         // const { username, password } = await response.json();
