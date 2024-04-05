@@ -9,6 +9,7 @@ function Header() {
       const response = await axios.post('http://192.168.1.5:3002/admin-logout');
 
       if (response.status === 200) {
+        localStorage.removeItem('userData');
         // Logout successful, navigate to login page
         navigate('/Login');
       } else {

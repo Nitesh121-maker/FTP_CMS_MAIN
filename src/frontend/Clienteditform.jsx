@@ -64,7 +64,7 @@ function Clienteditform({ selectedClient  }) {
       }, [successMessage]);
   return (
     <div>
-        <div className="add-client-form">
+        <div className="client-data-edit-form">
             <form onSubmit={handleSubmit} method='post'>
               {loading && (
                 <div className="progress-container">

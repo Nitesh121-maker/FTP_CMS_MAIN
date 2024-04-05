@@ -4,7 +4,7 @@ import "../css/index.css"
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDashboard } from '@fortawesome/free-solid-svg-icons';
-import { faCalendar,faUser,faPerson } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar,faUser,faPerson,faBell } from '@fortawesome/free-solid-svg-icons';
 import Profile from  "./profile"
 import Allclients from "./Clients"
 import Calender from "./Calendar"
@@ -49,12 +49,14 @@ function Index() {
       const handleChange = (e)=>{
         setFormData({...formData,[e.target.name]: e.target.value});
       };
+
+      
     //   Client Create
       const handleClient = async (e) => {
         e.preventDefault();
       
         try {
-          const response = await fetch('http://192.168.1.7:3002/client', {
+          const response = await fetch('http://192.168.1.5:3002/client', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -86,7 +88,7 @@ function Index() {
         // Fetch data from the /clients endpoint
         const fetchData = async () => {
           try {
-            const response = await fetch('http://192.168.1.7:3002/clientdata');
+            const response = await fetch('http://192.168.1.5:3002/clientdata');
             // const data = await response.json();
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -116,98 +118,112 @@ function Index() {
           },
         });
       };
+
+      const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+      useEffect(() => {
+          // Check if the user is logged in
+          const userData = localStorage.getItem('userData');
+          // console.log('User Data: ', userData);
+          const isLoggedIn = !!userData; // Check if user data exists
+          setIsLoggedIn(isLoggedIn);
+
+          if (!isLoggedIn) {
+            navigate('/login');
+          }
+      }, []);
+
   return (
     <>
-        <Header/>
-        <div className="main">
-            <div className="sidewrap">
-                <div className="sidebar">
-                    <div className="sidebar-list">
-                        <li> <FontAwesomeIcon icon={faDashboard} /><a href="/">Dashboard</a></li>
-                    </div>
-                    <div className="sidebar-list">
-                        <li><FontAwesomeIcon icon={faCalendar}/><a href="#Calender" onClick={showCalander}>Calendar</a></li>
-                    </div>
-                    <div className="sidebar-list">
-                        <li><FontAwesomeIcon icon={faUser}/><a href="#Profile" onClick={showProfile}>Profile</a></li>
-                    </div>
-                    <div className="sidebar-list">
-                        <li><FontAwesomeIcon icon={faPerson}/><a href="#Clients" onClick={showAllClients}>Clients</a></li>
-                    </div>
-                </div> 
-            </div>
-            <div className="functions">
-                {isclientform &&
-                    <div className="add-client-form">
-                        <form method='post' onSubmit={handleClient}>
-                        {message && <p className='error'>{message}</p>}
-                        <h2>Add Client</h2>
+        { isLoggedIn&&
+        <><Header /><div className="main">
+          <div className="sidewrap">
+            <div className="sidebar">
+              <div className="sidebar-list">
+                <li> <FontAwesomeIcon icon={faDashboard} /><a href="/admin-dashboard">Dashboard</a></li>
+              </div>
+              <div className="sidebar-list">
+                <li><FontAwesomeIcon icon={faCalendar} /><a href="#Calender" onClick={showCalander}>Calendar</a></li>
+              </div>
+              <div className="sidebar-list">
+                <li><FontAwesomeIcon icon={faUser} /><a href="#Profile" onClick={showProfile}>Profile</a></li>
+              </div>
+              <div className="sidebar-list">
+                <li><FontAwesomeIcon icon={faPerson} /><a href="#Clients" onClick={showAllClients}>Clients</a></li>
+              </div>
 
-                        <div className="form-group">
-                            <label formData="clientName">Client Name:</label>
-                            <input type="text" id="clientName" name="clientName"value={formData.clientName} onChange={handleChange} required/>
-                        </div>
-
-                        <div className="form-group">
-                            <label formData="clientEmail">Client Email:</label>
-                            <input type="email" id="clientEmail" name="clientEmail"value={formData.clientEmail} onChange={handleChange} required/>
-                        </div>
-                        <input type="text" id="clientStatus" name="clientStatus" value={formData.clientStatus} hidden/>
-                        <div className="form-group">
-                            <label formData="clientPassword">Password:</label>
-                            <input type="password" id="clientPassword" name="clientPassword"value={formData.clientPassword} onChange={handleChange} required/>
-                        </div>
-                        <button type="submit" className="add-client-btn">
-                            <span className="btn-text">Add Client</span>
-                        </button>
-                        </form>
-                    </div>
-                }
-                {isclientTable &&
-                    <div className="clients">
-                        <h3>Recent Client</h3>
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Status</th>
-                                <th>Created At</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {Array.isArray(clients) && clients.length > 0 ? (
-                                clients.map((client) => (
-                                <tr key={client.clientId}>
-                                    <td>{client.clientName}</td>
-                                    <td>{client.clientEmail}</td>
-                                    <td>{client.clientStatus}</td>
-                                    <td>{client.created_at}</td>
-                                    <button onClick={() => handleViewClick(client)} className='view-btn'>View</button>
-                                </tr>
-                                ))
-                            ) : (
-                                <tr>
-                                <td colSpan="4">No clients available</td>
-                                </tr>
-                            )}
-                            </tbody>
-                        </table>
-                    </div>
-                }
-                <div className="profile">
-                {isProfileHidden && <Profile />}
-                </div>
-                <div className="Allclient">
-                    {isAllclientHidden && <Allclients/>}
-                </div>
-                <div className="calender">
-                    {isCalenderHidden && <Calender/>}
-                </div>
             </div>
-        </div>
-  
+          </div>
+          <div className="functions">
+            {isclientform &&
+              <div className="add-client-form">
+                <form method='post' onSubmit={handleClient}>
+                  {message && <p className='error'>{message}</p>}
+                  <h2>Add Client</h2>
+
+                  <div className="form-group">
+                    <label formData="clientName">Client Name:</label>
+                    <input type="text" id="clientName" name="clientName" value={formData.clientName} onChange={handleChange} required />
+                  </div>
+
+                  <div className="form-group">
+                    <label formData="clientEmail">Client Email:</label>
+                    <input type="email" id="clientEmail" name="clientEmail" value={formData.clientEmail} onChange={handleChange} required />
+                  </div>
+                  <input type="text" id="clientStatus" name="clientStatus" value={formData.clientStatus} hidden />
+                  <div className="form-group">
+                    <label formData="clientPassword">Password:</label>
+                    <input type="password" id="clientPassword" name="clientPassword" value={formData.clientPassword} onChange={handleChange} required />
+                  </div>
+                  <button type="submit" className="add-client-btn">
+                    <span className="btn-text">Add Client</span>
+                  </button>
+                </form>
+              </div>}
+            {isclientTable &&
+              <div className="clients">
+                <h3>Recent Client</h3>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Status</th>
+                      <th>Created At</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Array.isArray(clients) && clients.length > 0 ? (
+                      clients.map((client) => (
+                        <tr key={client.clientId}>
+                          <td>{client.clientName}</td>
+                          <td>{client.clientEmail}</td>
+                          <td>{client.clientStatus}</td>
+                          <td>{new Date(client.created_at).toLocaleDateString()}</td>
+                          <button onClick={() => handleViewClick(client)} className='view-btn'>View</button>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="4">No clients available</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>}
+            <div className="profile">
+              {isProfileHidden && <Profile />}
+            </div>
+            <div className="Allclient">
+              {isAllclientHidden && <Allclients />}
+            </div>
+            <div className="calender">
+              {isCalenderHidden && <Calender />}
+            </div>
+          </div>
+        </div></>
+        }
     </>
   )
 }

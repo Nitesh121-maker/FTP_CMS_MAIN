@@ -7,6 +7,7 @@ import Dashboard from './frontend/index';
 import ClientProfile from './frontend/ClientsProfile'
 import Login from './frontend/Login';
 import Registeration from './frontend/Registeration';
+import Notification from './frontend/notification';
 // import reportWebVitals from './reportWebVitals';
 
 export default function Index() {
@@ -15,6 +16,7 @@ export default function Index() {
       <Routes>
         <Route path="/admin-dashboard" element={<Dashboard/>}></Route>
         <Route path="/ClientProfile/:clientId" element={<ClientProfile/>}></Route>
+        {/* <Route path='/notification' element={<Notification/>}></Route> */}
         <Route path="/Login" element={<Login/>}></Route>
         <Route path='/Register' element={<Registeration/>}></Route>
       </Routes>
