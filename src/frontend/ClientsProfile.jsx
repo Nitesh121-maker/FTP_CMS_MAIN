@@ -19,6 +19,7 @@ function ClientsProfile() {
   const [file, setFile] = useState(null);
   const [isUploadedfiles, setUploadedFiles] =useState(true);
   const [isDownloadedfiles, setDownloadedFiles] =useState(false);
+  const [ischat, setChat] =useState(false);
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -61,10 +62,18 @@ function ClientsProfile() {
   function showDownloaded() {
     setDownloadedFiles(true);
     setUploadedFiles(false);
+    setChat(false);
   }
   function showUloaded() {
     setUploadedFiles(true);
     setDownloadedFiles(false);
+    setChat(false);
+  }
+  function chat() {
+    setChat(true);
+    setUploadedFiles(false);
+    setDownloadedFiles(false);
+
   }
   // Uploaded data
   const [fileData, setFileData] = useState([]);
@@ -148,6 +157,8 @@ function ClientsProfile() {
           <div className="toogle-btn">
             <button className='uploaded-files' onClick={showUloaded}>Uploaded Files</button>
             <button className='downloaded-files'onClick={showDownloaded}>Downloaded Files</button>
+            <button className='downloaded-files'onClick={showDownloaded}>Client Report</button>
+            <button className='downloaded-files'onClick={chat}>Chat</button>
           </div>
           {isUploadedfiles&&
             <div className="Uploaded">
@@ -212,6 +223,18 @@ function ClientsProfile() {
               </tbody>
             </table>
           </div>
+          }
+          {ischat &&
+            <div className="chat-form-container" id='messageForm' >
+              <label htmlFor="name">Message:</label>
+              <div className="chat-messages">
+                {/* Render chat messages here */}
+              </div>
+              <form className="chat-input-form">
+                <input type="text" className="chat-input" placeholder="Type your message..." />
+                <button type="submit" className="send-button">Send</button>
+              </form>
+            </div>
           }
         </div>
       </div>
