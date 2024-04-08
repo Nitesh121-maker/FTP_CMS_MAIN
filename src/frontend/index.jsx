@@ -44,6 +44,7 @@ function Index() {
         clientName:"",
         clientEmail:"",
         clientStatus: "Active",
+        clientType: "",
         clientPassword:"",
       });
       const handleChange = (e)=>{
@@ -56,7 +57,7 @@ function Index() {
         e.preventDefault();
       
         try {
-          const response = await fetch('http://192.168.1.5:3002/client', {
+          const response = await fetch('http://192.168.1.8:3002/client', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -88,7 +89,7 @@ function Index() {
         // Fetch data from the /clients endpoint
         const fetchData = async () => {
           try {
-            const response = await fetch('http://192.168.1.5:3002/clientdata');
+            const response = await fetch('http://192.168.1.8:3002/clientdata');
             // const data = await response.json();
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -171,6 +172,15 @@ function Index() {
                     <input type="email" id="clientEmail" name="clientEmail" value={formData.clientEmail} onChange={handleChange} required />
                   </div>
                   <input type="text" id="clientStatus" name="clientStatus" value={formData.clientStatus} hidden />
+                  <div className="form-group">
+                    <label htmlFor="client-type">Select Client Type:</label>
+                    <select id="client-type" name='clientType' value={formData.clientType} onChange={handleChange}>
+                      <option value="" selected>-- Select --</option>
+                      <option value="yearly">Yearly Subscription</option>
+                      <option value="quarterly">Quarterly Subscription</option>
+                      <option value="monthly">Monthly Subscription</option>
+                    </select>
+                  </div>
                   <div className="form-group">
                     <label formData="clientPassword">Password:</label>
                     <input type="password" id="clientPassword" name="clientPassword" value={formData.clientPassword} onChange={handleChange} required />

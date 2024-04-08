@@ -6,7 +6,7 @@ function Header() {
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
-      const response = await axios.post('http://192.168.1.5:3002/admin-logout');
+      const response = await axios.post('http://192.168.1.8:3002/admin-logout');
 
       if (response.status === 200) {
         localStorage.removeItem('userData');

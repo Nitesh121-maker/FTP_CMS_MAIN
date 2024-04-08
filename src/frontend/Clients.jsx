@@ -14,7 +14,7 @@ function Clients() {
        
         const fetchData = async () => {
           try {
-            const response = await fetch('http://192.168.1.5:3002/clientdata');
+            const response = await fetch('http://192.168.1.8:3002/clientdata');
             // const data = await response.json();
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);

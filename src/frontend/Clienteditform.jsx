@@ -6,7 +6,8 @@ function Clienteditform({ selectedClient  }) {
      const [formData, setFormData] = useState({
         clientName: '',
         clientEmail: '',
-        clientStatus: 'Active', // Assuming default value is 'Active'
+        clientStatus: 'Active',
+        clientType: '', 
         clientPassword: '',
       });
     
@@ -17,6 +18,7 @@ function Clienteditform({ selectedClient  }) {
             clientName: selectedClient .clientName || '',
             clientEmail: selectedClient .clientEmail || '',
             clientStatus: selectedClient .clientStatus || 'Active',
+            clientType: selectedClient .clientType || '',
             clientPassword:selectedClient .clientPassword|| '', 
           });
         }
@@ -33,7 +35,7 @@ function Clienteditform({ selectedClient  }) {
         // Example: Update client data on the server
         try {
           setLoading(true);
-          const response = await fetch(`http://192.168.1.5:3002/edit-client/${selectedClient.clientId}`, {
+          const response = await fetch(`http://192.168.1.8:3002/edit-client/${selectedClient.clientId}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -111,6 +113,20 @@ function Clienteditform({ selectedClient  }) {
                     </select>
                 </div>
                 <div className="form-group">
+                    <label htmlFor="clientType">Client Type:</label>
+                    <select
+                      name="clientType"
+                      id="clientType"
+                      value={formData.clientType}
+                      onChange={handleInputChange}
+                    >
+
+                      <option value="yearly">Yearly Subscription</option>
+                      <option value="quarterly">Quarterly Subscription</option>
+                      <option value="monthly">Monthly Subscription</option>
+                    </select>
+                </div>
+                <div className="form-group">
                     <label htmlFor="clientPassword">Password:</label>
                     <input
                         type="text"
@@ -121,7 +137,7 @@ function Clienteditform({ selectedClient  }) {
                       />
                 </div>
                 <button type="submit" className="add-client-btn">
-                    <span className="btn-text">Edit Client</span>
+                    <span className="btn-text">Save Client</span>
                 </button>
             </form>
         </div>

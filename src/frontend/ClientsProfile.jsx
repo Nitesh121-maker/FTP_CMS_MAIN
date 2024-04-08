@@ -39,7 +39,7 @@ function ClientsProfile() {
       formData.append('fileMonth', fileMonth);
       formData.append('file', file);
 
-      const response = await fetch('http://192.168.1.5:3002/upload', {
+      const response = await fetch('http://192.168.1.8:3002/upload', {
         method: 'POST',
         body: formData,
       });
@@ -85,7 +85,7 @@ function ClientsProfile() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://192.168.1.5:3002/getFileData/${clientId}`);
+        const response = await fetch(`http://192.168.1.8:3002/getFileData/${clientId}`);
         if (response.ok) {
           const data = await response.json();
           console.log('Data from server:', data); // Log the received data
