@@ -10,7 +10,7 @@ function ClientsProfile() {
   const [message, setMessage] = useState("");
   const {  clientId } = useParams();
   const location = useLocation();
-  const { clientName,clientEmail } = location.state || {};
+  const { clientName,clientEmail, clientType } = location.state || {};
   const [isUploading, setIsUploading] = useState(false);
 
 
@@ -20,6 +20,7 @@ function ClientsProfile() {
   const [isUploadedfiles, setUploadedFiles] =useState(true);
   const [isDownloadedfiles, setDownloadedFiles] =useState(false);
   const [ischat, setChat] =useState(false);
+  const[clientReport,setClientReport]=useState(false);
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -44,6 +45,7 @@ function ClientsProfile() {
         body: formData,
       });
       if (response.ok) {
+
         setMessage('File Uploaded Successfully');
         setTimeout(() => {
             window.location.reload();
@@ -63,17 +65,25 @@ function ClientsProfile() {
     setDownloadedFiles(true);
     setUploadedFiles(false);
     setChat(false);
+    setClientReport(false);
   }
   function showUloaded() {
     setUploadedFiles(true);
     setDownloadedFiles(false);
     setChat(false);
+    setClientReport(false);
   }
   function chat() {
     setChat(true);
     setUploadedFiles(false);
     setDownloadedFiles(false);
-
+    setClientReport(false);
+  }
+  function client_report() {
+    setClientReport(true);
+    setUploadedFiles(false);
+    setDownloadedFiles(false);
+    setChat(false);
   }
   // Uploaded data
   const [fileData, setFileData] = useState([]);
@@ -157,7 +167,7 @@ function ClientsProfile() {
           <div className="toogle-btn">
             <button className='uploaded-files' onClick={showUloaded}>Uploaded Files</button>
             <button className='downloaded-files'onClick={showDownloaded}>Downloaded Files</button>
-            <button className='downloaded-files'onClick={showDownloaded}>Client Report</button>
+            <button className='downloaded-files'onClick={client_report}>Client Report</button>
             <button className='downloaded-files'onClick={chat}>Chat</button>
           </div>
           {isUploadedfiles&&
@@ -223,6 +233,53 @@ function ClientsProfile() {
               </tbody>
             </table>
           </div>
+          }
+          {clientReport &&
+              <table>
+              <thead>
+                <tr>
+                  <th>Month</th>
+                  <th>Import Status</th>
+                  <th>Export Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {months.map((month, index) => {
+                  // Find the files for the current month
+                  const filesForMonth = fileData.filter(file => file.file_month === month);
+                  console.log('Files For Month: ', filesForMonth);
+
+                  // Filter files for import and export types
+                  const importFiles = filesForMonth.filter(file => file.filetype === 'import');
+                  const exportFiles = filesForMonth.filter(file => file.filetype === 'export');
+
+                  return (
+                    <tr key={index}>
+                      <td>{month}</td>
+                      <td>
+                        {importFiles.length > 0 ? (
+                          importFiles.map((file, i) => (
+                            <div key={i}>{file.file_status}</div>
+                          ))
+                        ) : (
+                          <div>Pending</div>
+                        )}
+                      </td>
+                      <td>
+                        {exportFiles.length > 0 ? (
+                          exportFiles.map((file, i) => (
+                            <div key={i}>{file.file_status}</div>
+                          ))
+                        ) : (
+                          <div>Pending</div>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+
+            </table>
           }
           {ischat &&
             <div className="chat-form-container" id='messageForm' >
