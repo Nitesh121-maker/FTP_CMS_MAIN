@@ -11,10 +11,10 @@ export default function Index() {
   return (
     <Router>
       <Routes>
-        <Route path="/admin-dashboard" element={<Dashboard />}></Route>
-        <Route path="/ClientProfile/:clientId" element={<ClientProfile />}></Route>
-        <Route path="/Login" element={<Login />}></Route>
-        <Route path='/Register' element={<Registeration />}></Route>
+        <Route path="/FTP_CMS_MAIN/admin-dashboard" element={<Dashboard />}></Route>
+        <Route path="/FTP_CMS_MAIN/ClientProfile/:clientId" element={<ClientProfile />}></Route>
+        <Route path="/FTP_CMS_MAIN/Login" element={<Login />}></Route>
+        <Route path='/FTP_CMS_MAIN/Register' element={<Registeration />}></Route>
       </Routes>
     </Router>
   )
