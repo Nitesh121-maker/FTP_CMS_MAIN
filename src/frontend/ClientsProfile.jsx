@@ -41,7 +41,7 @@ function ClientsProfile() {
       formData.append('fileMonth', fileMonth);
       formData.append('file', file);
 
-      const response = await fetch('http://192.168.1.4:3005/upload', {
+      const response = await fetch('https://ftp-admin-server.vercel.app/upload', {
         method: 'POST',
         body: formData,
       });
@@ -118,7 +118,7 @@ function ClientsProfile() {
       return; // If user cancels deletion, exit the function
     }  
      try {
-         const response = await axios.post (`http://192.168.1.4:3005/delete/${clientId}/${file_name}`);
+         const response = await axios.post (`https://ftp-admin-server.vercel.app/delete/${clientId}/${file_name}`);
          window.location.reload(true);
      } catch (error) {
         console.error('Error deleting file :', error.message);
