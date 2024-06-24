@@ -5,6 +5,7 @@ import "../css/index.css";
 import { useLocation,useParams  } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDashboard } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
 function ClientsProfile() {
   const [message, setMessage] = useState("");
@@ -40,7 +41,7 @@ function ClientsProfile() {
       formData.append('fileMonth', fileMonth);
       formData.append('file', file);
 
-      const response = await fetch('http://192.168.1.8:3002/upload', {
+      const response = await fetch('http://192.168.1.4:3005/upload', {
         method: 'POST',
         body: formData,
       });
@@ -95,7 +96,7 @@ function ClientsProfile() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://192.168.1.8:3002/getFileData/${clientId}`);
+        const response = await fetch(`https://ftp-admin-server.vercel.app/getFileData/${clientId}`);
         if (response.ok) {
           const data = await response.json();
           console.log('Data from server:', data); // Log the received data
@@ -111,6 +112,18 @@ function ClientsProfile() {
     fetchData();
   }, []);
   
+  const handleDelete = async(clientId,file_name) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this file?");
+    if (!confirmDelete) {
+      return; // If user cancels deletion, exit the function
+    }  
+     try {
+         const response = await axios.post (`http://192.168.1.4:3005/delete/${clientId}/${file_name}`);
+         window.location.reload(true);
+     } catch (error) {
+        console.error('Error deleting file :', error.message);
+     }
+  }
   
   
   return (
@@ -168,12 +181,12 @@ function ClientsProfile() {
             <button className='uploaded-files' onClick={showUloaded}>Uploaded Files</button>
             <button className='downloaded-files'onClick={showDownloaded}>Downloaded Files</button>
             <button className='downloaded-files'onClick={client_report}>Client Report</button>
-            <button className='downloaded-files'onClick={chat}>Chat</button>
+            {/* <button className='downloaded-files'onClick={chat}>Chat</button> */}
           </div>
           {isUploadedfiles&&
             <div className="Uploaded">
             <h1>Uploaded Files</h1>
-            <table>
+            <table className='clientProfileTables'>
               <thead>
                 <tr>
                   <th>File Type</th>
@@ -197,7 +210,7 @@ function ClientsProfile() {
                     <td>{new Date(file.upload_date).toLocaleDateString()}</td>
                     <td>{file.upload_month}</td>
                     <td>{file.upload_year}</td>
-                    <td><button className='btn-danger'>Delete</button></td>
+                    <td><button className='btn-danger' onClick={()=>handleDelete(clientId,file.file_name)}>Delete</button></td>
                     
                   </tr>
                 ))
@@ -211,31 +224,30 @@ function ClientsProfile() {
           {isDownloadedfiles &&
             <div className="downloaded">
             <h3>Downloaded File Details</h3>
-            <table>
+            <table className='clientProfileTables'>
               <thead>
                 <tr>
                   <th>File Name</th>
-                  <th>File Size</th>
-                  <th>Downloaded On</th>
+                  <th>Download Status</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>ExampleFile.pdf</td>
-                  <td>2.5 MB</td>
-                  <td>January 1, 2023</td>
-                </tr>
-                <tr>
-                  <td>ExampleFile.pdf</td>
-                  <td>2.5 MB</td>
-                  <td>January 1, 2023</td>
-                </tr>
+              {Array.isArray(fileData) && fileData.length > 0 ? (
+                fileData.map((file) => (
+                  <tr key={file.uid}>
+                    <td>{file.file_name}</td>
+                    <td>{file.download_status}</td>
+                  </tr>
+                ))
+              ): (
+                <p>No data available.</p>
+              )}
               </tbody>
             </table>
           </div>
           }
           {clientReport &&
-              <table>
+              <table className='clientProfileTables'>
               <thead>
                 <tr>
                   <th>Month</th>

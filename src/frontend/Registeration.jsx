@@ -15,7 +15,7 @@ const Registeration = () => {
     e.preventDefault();
   
     try {
-      const response = await fetch('http://192.168.1.10:3002/register', {
+      const response = await fetch('https://ftp-admin-server.vercel.app/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

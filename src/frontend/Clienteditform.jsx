@@ -35,7 +35,7 @@ function Clienteditform({ selectedClient  }) {
         // Example: Update client data on the server
         try {
           setLoading(true);
-          const response = await fetch(`http://192.168.1.8:3002/edit-client/${selectedClient.clientId}`, {
+          const response = await fetch(`https://ftp-admin-server.vercel.app/edit-client/${selectedClient.clientId}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

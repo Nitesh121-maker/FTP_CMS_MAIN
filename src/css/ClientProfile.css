@@ -99,20 +99,22 @@
     text-align: left;
   }
 
-  table {
-    width: 100%;
+.clientProfileTables{
+    width: 95%;
     margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
     border-collapse: collapse;
   }
 
-  th, td {
+  .clientProfileTables th, td {
     border: 1px solid #ddd;
     padding: 10px;
     text-align: left;
     font-weight: 500;
   }
 
-  th {
+  .clientProfileTables th {
     background-color: #4CAF50;
     color: #fff;
   }
@@ -261,3 +263,16 @@
 .send-button:hover {
   background-color: #2980b9;
 }
+.clientTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.clientTable th,
+.clientTable td {
+  padding: 0px;
+  text-align: left;
+  /* border-bottom: 1px solid; */
+}
+
+

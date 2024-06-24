@@ -1,5 +1,5 @@
 .Allclients{
-  width: 100%;
+  width: 90%;
   display: flex;
 }
 
@@ -21,7 +21,8 @@ th, td {
 }
 
 th {
-  background-color: #3498db;
+  border: 1px solid #ddd;
+  background-color: #4CAF50;
   color: #fff;
 }
 

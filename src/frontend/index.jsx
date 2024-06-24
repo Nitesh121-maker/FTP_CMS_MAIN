@@ -52,12 +52,14 @@ function Index() {
       };
 
       
+
+      
     //   Client Create
       const handleClient = async (e) => {
         e.preventDefault();
       
         try {
-          const response = await fetch('http://192.168.1.8:3002/client', {
+          const response = await fetch('https://ftp-admin-server.vercel.app/client', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -89,7 +91,7 @@ function Index() {
         // Fetch data from the /clients endpoint
         const fetchData = async () => {
           try {
-            const response = await fetch('http://192.168.1.8:3002/clientdata');
+            const response = await fetch('https://ftp-admin-server.vercel.app/clientdata');
             // const data = await response.json();
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
