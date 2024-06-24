@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/FTP_CMS_MAIN/static/css/main.dc81b6fa.css",
+    "main.js": "/FTP_CMS_MAIN/static/js/main.61188c33.js",
+    "static/media/Admin-img.png": "/FTP_CMS_MAIN/static/media/Admin-img.fd393f0c3f3e3d8e45e6.png",
+    "static/media/logo.png": "/FTP_CMS_MAIN/static/media/logo.9296f426084cd4aec922.png",
+    "index.html": "/FTP_CMS_MAIN/index.html",
+    "main.dc81b6fa.css.map": "/FTP_CMS_MAIN/static/css/main.dc81b6fa.css.map",
+    "main.61188c33.js.map": "/FTP_CMS_MAIN/static/js/main.61188c33.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.dc81b6fa.css",
+    "static/js/main.61188c33.js"
+  ]
+}
