@@ -45,8 +45,9 @@ function ClientsProfile() {
       console.log('clientEmail',clientEmail);
       console.log('fileType',fileType);
       console.log('fileMonth',fileMonth);
-      console.log('File',file);
-      const response = await fetch('https://ftp-admin-server.vercel.app/upload', {
+      console.log('File',formData);
+
+      const response = await axios.post('https://ftp-admin-server.vercel.app/upload-file', {
         method: 'POST',
         body: formData,
       });
