@@ -9,7 +9,6 @@ import axios from 'axios';
 
 function ClientsProfile() {
   const [message, setMessage] = useState("");
-  const [errormessage, setErrormessage] = useState([]);
   const {  clientId } = useParams();
   const location = useLocation();
   const { clientName,clientEmail, clientType } = location.state || {};
@@ -37,25 +36,27 @@ function ClientsProfile() {
       const formData = new FormData();
       formData.append('clientId', clientId);
       formData.append('clientName', clientName);
+      formData.append('clientEmail', clientEmail);
       formData.append('fileType', fileType);
       formData.append('fileMonth', fileMonth);
       formData.append('file', file);
-      console.log('formData',formData);
-      const response = await axios.post('https://ftp-admin-server.vercel.app/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+      
+      console.log('File',file);
+      const response = await fetch('https://ftp-admin-server.vercel.app/upload', {
+        method: 'POST',
+        body: formData,
       });
+      if (response.ok) {
 
-      if (response.status === 200) {
         setMessage('File Uploaded Successfully');
         setTimeout(() => {
-          window.location.reload();
-        }, 5000);
+            window.location.reload();
+          }, 5000);
       } else {
-        setMessage(response.data.error || 'Error uploading file');
+        // Handle other cases, e.g., client already exists
+        const data = await response.json();
+        setMessage(data.message || 'Error adding client');
       }
-
       setIsUploading(false);
     } catch (error) {
       console.error('Error uploading file:', error);
