@@ -9,6 +9,7 @@ import axios from 'axios';
 
 function ClientsProfile() {
   const [message, setMessage] = useState("");
+  const [errormessage, setErrormessage] = useState([]);
   const {  clientId } = useParams();
   const location = useLocation();
   const { clientName,clientEmail, clientType } = location.state || {};
@@ -39,7 +40,7 @@ function ClientsProfile() {
       formData.append('fileType', fileType);
       formData.append('fileMonth', fileMonth);
       formData.append('file', file);
-
+      console.log('formData',formData);
       const response = await axios.post('https://ftp-admin-server.vercel.app/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
