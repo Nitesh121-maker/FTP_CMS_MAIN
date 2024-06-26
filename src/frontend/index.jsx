@@ -59,7 +59,7 @@ function Index() {
         e.preventDefault();
       
         try {
-          const response = await fetch('http://192.168.1.22:3000/client', {
+          const response = await fetch('https://ftp-admin-server.vercel.app/client', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ function Index() {
         // Fetch data from the /clients endpoint
         const fetchData = async () => {
           try {
-            const response = await fetch('http://192.168.1.22:3000/clientdata');
+            const response = await fetch('https://ftp-admin-server.vercel.app/clientdata');
             // const data = await response.json();
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
