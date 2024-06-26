@@ -41,6 +41,10 @@ function ClientsProfile() {
       formData.append('fileMonth', fileMonth);
       formData.append('file', file);
       
+      console.log('clientName',clientName);
+      console.log('clientEmail',clientEmail);
+      console.log('clientEmail',clientEmail);
+      console.log('fileMonth',fileMonth);
       console.log('File',formData);
       const response = await fetch('https://ftp-admin-server.vercel.app/upload', {
         method: 'POST',
