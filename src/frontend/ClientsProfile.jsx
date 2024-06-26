@@ -40,7 +40,7 @@ function ClientsProfile() {
       formData.append('fileMonth', fileMonth);
       formData.append('file', file);
 
-      const response = await axios.post('/upload', formData, {
+      const response = await axios.post('https://ftp-admin-server.vercel.app/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
