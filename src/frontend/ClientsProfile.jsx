@@ -6,7 +6,7 @@ import { useLocation,useParams  } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDashboard } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-
+const CHUNK_SIZE = 1*1024*1024;
 function ClientsProfile() {
   const [message, setMessage] = useState("");
   const {  clientId } = useParams();
@@ -33,28 +33,41 @@ function ClientsProfile() {
     try {
       setIsUploading(true);
   
-      const formData = new FormData();
-      formData.append('clientId', clientId);
-      formData.append('clientName', clientName);
-      formData.append('clientEmail', clientEmail);
-      formData.append('fileType', fileType);
-      formData.append('fileMonth', fileMonth);
-      formData.append('file', file);
+      const totalChunks = Math.ceil(file.size / CHUNK_SIZE);
+      for (let i = 0; i < totalChunks; i++) {
+        const start = i * CHUNK_SIZE;
+        const end = Math.min(file.size, start + CHUNK_SIZE);
+        const chunk = file.slice(start, end);
   
-      const response = await axios.post('https://ftp-admin-server.vercel.app/upload-file', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
+        const formData = new FormData();
+        formData.append('clientId', clientId);
+        formData.append('clientName', clientName);
+        formData.append('clientEmail', clientEmail);
+        formData.append('fileType', fileType);
+        formData.append('fileMonth', fileMonth);
+        formData.append('file', chunk);
+        formData.append('chunkIndex', i);
+        formData.append('totalChunks', totalChunks);
+        formData.append('originalFileName', file.name);
+  
+        const response = await axios.post('https://ftp-admin-server.vercel.app/upload-file-chunk', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+  
+        if (response.status < 200 || response.status >= 300) {
+          setMessage(response.data.message || 'Error in response');
+          return;
         }
-      });
   
-      if (response.status >= 200 && response.status < 300) {
-        setMessage('File Uploaded Successfully');
-        setTimeout(() => {
-          window.location.reload();
-        }, 5000);
-      } else {
-        setMessage(response.data.message || 'Error in responce');
+        setMessage(`Uploading chunk ${i + 1} of ${totalChunks}`);
       }
+  
+      setMessage('File Uploaded Successfully');
+      setTimeout(() => {
+        window.location.reload();
+      }, 5000);
     } catch (error) {
       console.error('Error uploading file:', error);
       setMessage('Error uploading file');
