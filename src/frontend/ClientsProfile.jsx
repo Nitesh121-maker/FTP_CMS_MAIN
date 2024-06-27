@@ -41,12 +41,6 @@ function ClientsProfile() {
       formData.append('fileMonth', fileMonth);
       formData.append('file', file);
       
-      console.log('clientName',clientName);
-      console.log('clientEmail',clientEmail);
-      console.log('fileType',fileType);
-      console.log('fileMonth',fileMonth);
-      console.log('File',formData);
-
       const response = await axios.post('https://ftp-admin-server.vercel.app/upload-file', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
