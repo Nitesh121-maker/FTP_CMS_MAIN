@@ -6,7 +6,7 @@ import { useLocation,useParams  } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDashboard } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-const CHUNK_SIZE = 1*1024*1024;
+const CHUNK_SIZE = 3*1024*1024;
 function ClientsProfile() {
   const [message, setMessage] = useState("");
   const {  clientId } = useParams();
@@ -26,7 +26,7 @@ function ClientsProfile() {
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
   };
-
+// File Upload
   const handleFormSubmit = async (event) => {
     event.preventDefault();
   
