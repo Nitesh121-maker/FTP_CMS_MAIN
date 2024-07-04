@@ -20,7 +20,7 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await fetch('https://ftp-admin-server.vercel.app/login', {
+      const response = await fetch('https://ftp-admin-server.glitch.me/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

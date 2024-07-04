@@ -6,7 +6,7 @@ function Header() {
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
-      const response = await axios.post('http://192.168.1.22:3000/admin-logout');
+      const response = await axios.post('https://ftp-admin-server.vercel.app/admin-logout');
 
       if (response.status === 200) {
         localStorage.removeItem('userData');

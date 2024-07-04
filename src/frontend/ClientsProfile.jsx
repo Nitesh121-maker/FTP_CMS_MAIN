@@ -249,7 +249,7 @@ function ClientsProfile() {
                 fileData.map((file) => (
                   <tr key={file.uid}>
                     <td>{file.file_name}</td>
-                    <td>{file.download_status}</td>
+                    <td>{file.download_status ? 'Downloaded':'Not Downloaded'}</td>
                   </tr>
                 ))
               ): (
