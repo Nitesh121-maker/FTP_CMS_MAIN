@@ -50,7 +50,7 @@ function ClientsProfile() {
         formData.append('totalChunks', totalChunks);
         formData.append('originalFileName', file.name);
   
-        const response = await axios.post('https://ftp-admin-server.vercel.app/upload-file-chunk', formData, {
+        const response = await axios.post('https://ftp-admin-server.glitch.me/upload-file-chunk', formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
