@@ -14,7 +14,7 @@ function Clients() {
        
         const fetchData = async () => {
           try {
-            const response = await fetch('https://ftp-admin-server.vercel.app/clientdata');
+            const response = await fetch('https://ftp-admin-server.glitch.me/clientdata');
             // const data = await response.json();
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);

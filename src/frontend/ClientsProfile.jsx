@@ -109,7 +109,7 @@ function ClientsProfile() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`https://ftp-admin-server.vercel.app/getFileData/${clientId}`);
+        const response = await fetch(`https://ftp-admin-server.glitch.me/getFileData/${clientId}`);
         if (response.ok) {
           const data = await response.json();
           console.log('Data from server:', data); // Log the received data
@@ -131,7 +131,7 @@ function ClientsProfile() {
       return; // If user cancels deletion, exit the function
     }  
      try {
-         const response = await axios.post (`https://ftp-admin-server.vercel.app/delete/${clientId}/${file_name}`);
+         const response = await axios.post (`https://ftp-admin-server.glitch.me/delete/${clientId}/${file_name}`);
          window.location.reload(true);
      } catch (error) {
         console.error('Error deleting file :', error.message);
