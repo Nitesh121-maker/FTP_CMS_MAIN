@@ -27,54 +27,97 @@ function ClientsProfile() {
     setFile(event.target.files[0]);
   };
 // File Upload
+  // const handleFormSubmit = async (event) => {
+  //   event.preventDefault();
+  
+  //   try {
+  //     setIsUploading(true);
+  
+  //     const totalChunks = Math.ceil(file.size / CHUNK_SIZE);
+  //     for (let i = 0; i < totalChunks; i++) {
+  //       const start = i * CHUNK_SIZE;
+  //       const end = Math.min(file.size, start + CHUNK_SIZE);
+  //       const chunk = file.slice(start, end);
+  
+  //       const formData = new FormData();
+  //       formData.append('clientId', clientId);
+  //       formData.append('clientName', clientName);
+  //       formData.append('clientEmail', clientEmail);
+  //       formData.append('fileType', fileType);
+  //       formData.append('fileMonth', fileMonth);
+  //       formData.append('file', chunk);
+  //       formData.append('chunkIndex', i);
+  //       formData.append('totalChunks', totalChunks);
+  //       formData.append('originalFileName', file.name);
+  
+  //       const response = await axios.post('https://ftp-admin-server.glitch.me/upload-file-chunk', formData, {
+  //         headers: {
+  //           'Content-Type': 'multipart/form-data'
+  //         }
+  //       });
+  
+  //       if (response.status < 200 || response.status >= 300) {
+  //         setMessage(response.data.message || 'Error in response');
+  //         return;
+  //       }
+  
+  //       setMessage(`Uploading chunk ${i + 1} of ${totalChunks}`);
+  //     }
+  
+  //     setMessage('File Uploaded Successfully');
+  //     setTimeout(() => {
+  //       window.location.reload();
+  //     }, 5000);
+  //   } catch (error) {
+  //     console.error('Error uploading file:', error);
+  //     setMessage('Error uploading file');
+  //   } finally {
+  //     setIsUploading(false);
+  //   }
+  // };
   const handleFormSubmit = async (event) => {
     event.preventDefault();
   
     try {
       setIsUploading(true);
   
-      const totalChunks = Math.ceil(file.size / CHUNK_SIZE);
-      for (let i = 0; i < totalChunks; i++) {
-        const start = i * CHUNK_SIZE;
-        const end = Math.min(file.size, start + CHUNK_SIZE);
-        const chunk = file.slice(start, end);
+      // Create a FormData object to send the file and other details
+      const formData = new FormData();
+      formData.append('clientId', clientId);
+      formData.append('clientName', clientName);
+      formData.append('clientEmail', clientEmail);
+      formData.append('fileType', fileType);
+      formData.append('fileMonth', fileMonth);
+      formData.append('file', file); // Append the whole file, not chunks
   
-        const formData = new FormData();
-        formData.append('clientId', clientId);
-        formData.append('clientName', clientName);
-        formData.append('clientEmail', clientEmail);
-        formData.append('fileType', fileType);
-        formData.append('fileMonth', fileMonth);
-        formData.append('file', chunk);
-        formData.append('chunkIndex', i);
-        formData.append('totalChunks', totalChunks);
-        formData.append('originalFileName', file.name);
-  
-        const response = await axios.post('https://ftp-admin-server.glitch.me/upload-file-chunk', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        });
-  
-        if (response.status < 200 || response.status >= 300) {
-          setMessage(response.data.message || 'Error in response');
-          return;
+      // Make a POST request to the backend
+      const response = await axios.post('https://ftp-admin-server.glitch.me/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
         }
+      });
   
-        setMessage(`Uploading chunk ${i + 1} of ${totalChunks}`);
+      // Check if the response status is not within the successful range
+      if (response.status < 200 || response.status >= 300) {
+        setMessage(response.data.message || 'Error in response');
+        return;
       }
   
+      // Success message
       setMessage('File Uploaded Successfully');
       setTimeout(() => {
         window.location.reload();
       }, 5000);
+  
     } catch (error) {
+      // Handle any errors that occur during the upload process
       console.error('Error uploading file:', error);
       setMessage('Error uploading file');
     } finally {
       setIsUploading(false);
     }
   };
+  
   function showDownloaded() {
     setDownloadedFiles(true);
     setUploadedFiles(false);
